@@ -61,3 +61,56 @@ export default React.memo("Button");
 
 Here is the glimpse of the working code.
 ![An example of React.memo (hook)](resources/React-memo.gif)
+
+
+# useRef
+### Example 1
+using useRef hook get the value from input field.
+###### App jsx
+```
+//--App.js--
+import {useRef} from 'react';
+
+function App() {
+  const inputRef = useRef(null);
+
+  return (
+    <>
+      <input ref={inputRef}/>
+      <button onClick={()=>{console.log(inputRef.current.value)}}>Get input value</button>
+    </>
+  )
+}
+
+export default App;
+```
+
+### Example 2
+using useRef hook get a DOM element.
+
+The previous code for counter, in which on every click on "Increment" button, the counter increments by 1 because of changing state using **useState** React hook.
+Here I am using **useRef** to get the DOM element.
+
+```
+//--App.js--
+import './App.css';
+
+import {useState, useRef} from 'react';
+
+function App() {
+  const [counter, setCounter] = useState(0);
+  const headingRef = useRef(null);
+
+  return (
+    <>
+      <h1 ref={headingRef}>{counter}</h1>
+      <br/>
+      <button onClick = {()=>{setCounter(counter+1); console.log(headingRef.current)}}>Increment</button>
+
+    </>
+  );
+}
+
+export default App;
+
+```
