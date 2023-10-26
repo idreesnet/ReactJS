@@ -84,6 +84,7 @@ function App() {
 
 export default App;
 ```
+![React Hook useRef to Get input field's value](resources/useRef_get_input_value.gif)
 
 ### Example 2
 using useRef hook get a DOM element.
