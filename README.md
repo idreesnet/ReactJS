@@ -36,3 +36,4 @@ function Button () {
 }
 export default Button;
 ```
+![An example of React.memo (hook)](resources/React-memo.gif)
