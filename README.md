@@ -115,3 +115,4 @@ function App() {
 export default App;
 
 ```
+![React Hook useRef to get DOM element](resources/useRef_with_state_counter.gif)
