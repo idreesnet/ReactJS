@@ -201,3 +201,4 @@ function Child({getData}) {
 }
 export default memo(Child);
 ```
+![React.memo to avoid re-rendering fails](resources/memo_react_fails.gif)
