@@ -116,3 +116,13 @@ export default App;
 
 ```
 ![React Hook useRef to get DOM element](resources/useRef_with_state_counter.gif)
+
+# useCallback
+You have seen the application of **React.memo** or simply **memo** that how it avoids unnecessary rendering by memorizing the rendered output. It improves the performance by memorizing the result and skip the last rendered result. Any component that put into **memo** method of **React** will not be re-rendered by with the re-rendering of main component of App because of **state change**. 
+See below the example of **memo** usage again;
+
+### Example 1
+###### App.js
+```
+//--App.js--
+```
