@@ -121,7 +121,7 @@ export default App;
 You have seen the application of **React.memo** or simply **memo** that how it avoids unnecessary rendering by memorizing the rendered output. It improves the performance by memorizing the result and skip the last rendered result. Any component that put into **memo** method of **React** will not be re-rendered by with the re-rendering of main component of App because of **state change**. 
 See below the example of **memo** usage again;
 
-### Example 1
+### Example 1: using memo avoid re-rendering
 ###### App.js
 ```
 import {useState} from "react";
@@ -159,3 +159,8 @@ function Child() {
 export default memo(Child);
 ```
 ![React.memo to avoid re-rendering by memorizing](resources/memo_react_avoid_re-rendering.gif)
+
+## BUT...
+How long **memo** avoids the re-rendering of a component?
+If a prop of a function or object is passed to the memorized component. Then it will **re-render** again with the re-rendering of the main component.
+
