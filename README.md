@@ -124,5 +124,37 @@ See below the example of **memo** usage again;
 ### Example 1
 ###### App.js
 ```
-//--App.js--
+import {useState} from "react";
+import Button from "./components/Button";
+import Child from "./components/Child";
+
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return(
+    <div>
+      <Child />
+      <h1>{count}</h1>
+      <button onClick={()=>setCount(oldValue => oldValue +1)}>Increment</button>
+      <button disabled={count < 1} onClick={()=>setCount(oldValue => oldValue -1)}>Decrement</button>
+    </div>
+  )
+}
+
+export default App;
+```
+###### ./src/componenets/Button/index.js
+```
+import {memo} from "react";
+function Child() {
+    console.log("Child component");
+    return(
+        <div>
+            <h1>Child component</h1>
+        </div>
+    )
+}
+
+export default memo(Child);
 ```
