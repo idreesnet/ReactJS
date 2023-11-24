@@ -258,4 +258,4 @@ function Child({getData}) {
 
 export default memo(Child);
 ```
-
+![avoid_rerendering_by_function_recreation_using_useCallback](resources/avoid_rerendering_components_by_recreating_functions_using_useCallback.gif)
