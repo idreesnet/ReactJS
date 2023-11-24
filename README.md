@@ -202,3 +202,60 @@ function Child({getData}) {
 export default memo(Child);
 ```
 ![React.memo to avoid re-rendering fails](resources/memo_react_fails.gif)
+
+<hr>
+Done till here
+<hr>
+
+## useCallback
+
+to tackle the above problem React has provided us a hook **useCallback()**.
+It memorizes the functions/objects to be recreated because of App component rerending, Hence, the Child component (to which the function is passed as a prop) treats the functions as it was (nothing has been changes in the function nor it has been recreated) , and is not rerendered.
+
+### syntax of useCallback
+
+```
+const memorizedFn = useCallback (function, [dependency array];
+```
+
+###### Example: avoid rerendering using useCallback hook
+###### src/App.js
+```
+import {useState, useCallback} from "react";
+import Child from "./components/Child";
+
+function App() {
+  const [count, setCount] = useState(0);
+  const getData = useCallback(()=> {
+    return ["one", "two"];
+  }, []);
+  return(
+    <div>
+      <Child getData={getData}/>
+      <h1>{count}</h1>
+      <button onClick={()=>setCount(oldValue => oldValue +1)}>Increment</button>
+      <button disabled={count < 1} onClick={()=>setCount(oldValue => oldValue -1)}>Decrement</button>
+    </div>
+  )
+}
+
+export default App;
+
+```
+
+###### src/components/Child/index.js
+```
+import {memo} from "react";
+function Child({getData}) {
+    console.log(getData());
+    console.log("Child component");
+    return(
+        <div>
+            <h1>Child component</h1>
+        </div>
+    )
+}
+
+export default memo(Child);
+```
+
