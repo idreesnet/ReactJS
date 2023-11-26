@@ -259,3 +259,80 @@ function Child({getData}) {
 export default memo(Child);
 ```
 ![avoid_rerendering_by_function_recreation_using_useCallback](resources/avoid_rerendering_components_by_recreating_functions_using_useCallback.gif)
+
+
+## useCallback with dependency
+
+As you have understood the usage of **useCallback** hook in above example. The simple syntax of useCallback as
+
+```
+const memoizedCallback = useCallback(
+  () => {
+    // Function logic
+  },
+  [dependencies]
+);
+```
+
+Here's how useCallback works and how to use it:
+
+1. **The First Argument (Callback Function):**
+
+The first argument to useCallback is the function that you want to memoize. This function will only be recreated if any of the dependencies in the dependency array change.
+
+2. **The Second Argument (Dependencies):**
+
+The second argument is an optional array of dependencies. If any of these dependencies change, the callback function is recreated. If the dependencies remain the same, the memoized function is returned.
+
+
+###### src/App.js
+```
+import {useState, useCallback, useMemo} from "react";
+import Child from "./components/Child";
+
+function App() {
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(false);
+
+
+  const getData = useCallback(()=> {
+    return ["one", "two"];
+  }, [show]);
+  return(
+    <div>
+      <Child getData={getData}/>
+      <h1>{count}</h1>
+      <button onClick={()=>setCount(oldValue => oldValue +1)}>Increment</button>
+      <button disabled={count < 1} onClick={()=>setCount(oldValue => oldValue -1)}>Decrement</button>
+      <br />
+      <button onClick={()=> setShow (!show)}>{show ? "Hello" : "Hi"}</button>
+    </div>
+  )
+}
+```
+
+###### src/components/Child/index.js
+```
+import {memo} from "react";
+function Child({getData}) {
+    console.log(getData());
+    console.log("Child component");
+    return(
+        <div>
+            <h1>Child component</h1>
+        </div>
+    )
+}
+
+export default memo(Child);
+```
+
+
+in this example:
+- The `getData` function is memorized using `useCallback`.
+- The `Child` component receives the `getData` function as a prop.
+- the `count` state with the click on the **Increment** or **Decrement** button and thus the app re-renders but the `Child` component will not be re-rendered until yet. because it is memorized by the `useCallback` 
+- The second argument of the `useCallback` hook is dependency, which depends on the **show** state.
+- When the **show** state will be updated by toggle, the `App` component will be re-rendered and the Child componenet.
+
+  `useCallback` is beneficial when passing functions down to child components, especially in scenarios where you want to avoid unnecessary re-renders of those child components due to the creation of new function references. It helps with optimizing the performance of your React application.
