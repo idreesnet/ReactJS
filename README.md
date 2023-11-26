@@ -336,3 +336,5 @@ in this example:
 - When the **show** state will be updated by toggle, the `App` component will be re-rendered and the Child componenet.
 
   `useCallback` is beneficial when passing functions down to child components, especially in scenarios where you want to avoid unnecessary re-renders of those child components due to the creation of new function references. It helps with optimizing the performance of your React application.
+
+  ![useCallback hook depends on the change of show toggle](resources/useCallback_renders_with_show_toggle.gif)
