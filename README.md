@@ -339,7 +339,7 @@ in this example:
 
   ![useCallback hook depends on the change of show toggle](resources/useCallback_renders_with_show_toggle.gif)
 
-  # useMemo
+# useMemo
 
   We have been used `React.memo` to memorize a **component** so to avoid re-rendering because of state updation.
   `useMemo` does the some work but for memorizing a **value**.
@@ -369,8 +369,7 @@ function App() {
 
   return (
     <div>
-      {/* <h1>{getRandomValue}</h1> */}
-      <h1>{getValue()}</h1>
+      <h1>{getValue}</h1>
       <h1>{count}</h1>
       <button onClick = {()=> setCount (oldValue => oldValue + 1)}> Inc</button>
       <button onClick = {()=> setCount (oldValue => oldValue - 1)}> Dec</button>
@@ -378,5 +377,27 @@ function App() {
   )
 }
 export default App;
-
 ```
+
+**Lets break down the above code**
+
+1. **State Management**
+   - The component uses the `useState` hook to manage a state variable called `count` with an initial value of 0.
+
+2. **Random Value Function**
+   - There's a function called `getRandomValue` that returns a random value between 0 and 10. However, this function is not currently being used in the component render.
+
+3. **`useMemo` for Memorization**
+   - The `useMemo` hook is used to memorized the result of the `getRandomValue` function. It takes two arguments: a function to memorized the calculated value and an array of dependencies.
+   - In this case, the function passed to `useMemo` is `getRandomValue`, and the dependency array `[]` indicates that the memorized value should be calculated only once ( on the initial render) because there are no dependencies.
+   - The result of `useMemo` is stored in the variable `getValue`
+
+4. **Rendering**
+   - The component renders three elements.
+   - An `<h1>` element displaying the memorized value obtained from `getValue`.
+   - Another `<h1>` element displaying the current value of `count`.
+   - Two buttons to inrement and decrement the `count` state.
+  
+   **overall**
+   - The use of `useMemo` in this example might seem a bit redundant because `getRandomValue` doesn't have any dependencies. Memorization is more beneficial when dealing with expensive calculations or functions that depend on specific values, preventing unnecessary recalculations on every render. In this case, it's ensuring that the random value is only calculated once during the initial render.
+   - **If you were to use `getRandomValue` directly without `useMemo`, it would be recalculated on every render, which might be unnecessary.**
