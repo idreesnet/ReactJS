@@ -401,3 +401,5 @@ export default App;
    **overall**
    - The use of `useMemo` in this example might seem a bit redundant because `getRandomValue` doesn't have any dependencies. Memorization is more beneficial when dealing with expensive calculations or functions that depend on specific values, preventing unnecessary recalculations on every render. In this case, it's ensuring that the random value is only calculated once during the initial render.
    - **If you were to use `getRandomValue` directly without `useMemo`, it would be recalculated on every render, which might be unnecessary.**
+
+  ![useMemo hook to memorize calculated value](44.2_useMemo_memorized_value.gif)
