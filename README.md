@@ -338,3 +338,45 @@ in this example:
   `useCallback` is beneficial when passing functions down to child components, especially in scenarios where you want to avoid unnecessary re-renders of those child components due to the creation of new function references. It helps with optimizing the performance of your React application.
 
   ![useCallback hook depends on the change of show toggle](resources/useCallback_renders_with_show_toggle.gif)
+
+  # useMemo
+
+  We have been used `React.memo` to memorize a **component** so to avoid re-rendering because of state updation.
+  `useMemo` does the some work but for memorizing a **value**.
+  Here is the syntax usage of `useMemo`
+
+  **Syntax**
+  ```
+  const getValue = useMemo(calculateValue, dependencies)
+  ```
+  Similar to **useEffect**, **useCallback** and some other react hook `useMemo` has two parameters
+
+  `calculateValue`: Any function that returns a pure value. The function should not accept any argument. React will call your function on initial render. On next renders, It will show the same value (because it will not be re-rendered) unless or until the dependencies are not changed.
+
+  `dependencies`: It is array of values, on which the cashed value by **useMemo** depends. If there is a value, the cached value will only be changed by re-rendering with the change of the **value** in the dependencies. If the array is empty, the cached value will be the same.
+
+  **Example**
+
+```
+import {useState, useMemo} from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+  const getRandomValue =  () => {
+    return Math.random()*10;
+  }
+    const getValue = useMemo(()=> getRandomValue(), []); 
+
+  return (
+    <div>
+      {/* <h1>{getRandomValue}</h1> */}
+      <h1>{getValue()}</h1>
+      <h1>{count}</h1>
+      <button onClick = {()=> setCount (oldValue => oldValue + 1)}> Inc</button>
+      <button onClick = {()=> setCount (oldValue => oldValue - 1)}> Dec</button>
+    </div>
+  )
+}
+export default App;
+
+```
